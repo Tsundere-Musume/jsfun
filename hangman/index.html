@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Budget Hangman</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <h1>Budget Hangman</h1>
+    <div class="message-box">
+      <div class="message-box-text">     </div>
+    </div>
+    <div class="main-container">
+      <div class="container-element hangman-container" tabindex="1">
+        <h2>Loading...</h2>
+      </div>
+      <div class="container-element misc-container">
+        <div class="misc-container-element" id="all-choices" style="text-align:left;"><div class="jbhayepani">Guessed Letters: <span id="guessed-letters"><span></div></div>
+        <div id="break"></div>
+          <div class="misc-container-element" id="counter">Chances:</div>
+        <div class="misc-container-element" id="previous-choice">
+          
+        </div>
+          <button type="button" id="reset" onclick="document.location.reload()">
+          <img
+            class="logo"
+            src="https://imgs.search.brave.com/ETtSAPm5PCxtgV0Kq26dkH9ECXEp4QzL8jV2fTxpHR4/rs:fit:760:760:1/g:ce/aHR0cDovL2NlbnRy/ZXZpbGxlcHJlcy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MTEvMDUvUmVzZXQt/TG9nby5wbmc"
+            alt="Reset"/>
+          </button>
+      </div>
+    </div>
+    <script src="hangmanWeb.js"></script>
+  </body>
+</html>
