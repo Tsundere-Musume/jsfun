@@ -1,15 +1,16 @@
-let chances = 5;
-let wordToGuess = 'Never Gonna Give You Up';
-const guessed = [' ', '.', ',', '!','\'','\"',':',';','?','’'];
-const initialLength = guessed.length;
+let chances = 5,
+  wordToGuess;
+const guessed = [' ', '.', ',', '!', "'", '"', ':', ';', '?', '’'],
+  initialLength = guessed.length;
 
-const hangmanContainer = document.querySelector('.hangman-container');
-const msgBox = document.querySelector('.message-box-text');
+const hangmanContainer = document.querySelector('.hangman-container'),
+  msgBox = document.querySelector('.message-box-text');
 
 //gets a random word and starts hangman
-getWord()
+getWord();
 hangmanContainer.addEventListener('keyup', execHangman);
 
+// Main
 function execHangman(event) {
   function hangman(
     guess,
@@ -26,7 +27,7 @@ function execHangman(event) {
 
     // Winner Handler
     if (wordToPrint == wordToGuess) {
-      success('Finally Won, Didn\'t You');
+      success("Finally Won, Didn't You");
       event.target.removeEventListener('keyup', execHangman);
       return;
     }
@@ -59,26 +60,34 @@ function checker() {
   return returnWord;
 }
 
+// Function to write to the browser
 function writeToDOM(text) {
   hangmanContainer.firstElementChild.textContent = text;
 }
 
 function winNotify(text) {
-  msgBox.style.backgroundColor = 'rgb(148, 226, 213)'
+  msgBox.style.backgroundColor = 'rgb(148, 226, 213)';
   msgBox.textContent = text;
-  msgBox.style.left = ((document.body.scrollWidth - msgBox.offsetWidth) * 50 /100) + "px"
+  msgBox.style.left =
+    (document.body.clientWidth - msgBox.offsetWidth) / 2 + 'px';
   msgBox.parentNode.style.opacity = 1;
+  document.getElementById('correct-answer').textContent =
+    'Correct Answer: ' + wordToGuess;
   setTimeout(() => (msgBox.parentNode.style.opacity = 0), 1500);
 }
 
 function loseNotify(text) {
   msgBox.style.backgroundColor = 'rgb(203, 166, 247)';
   msgBox.textContent = text;
-  msgBox.style.left = ((document.body.scrollWidth - msgBox.offsetWidth) * 50 /100) + "px"
+  msgBox.style.left =
+    (document.body.clientWidth - msgBox.offsetWidth) / 2 + 'px';
   msgBox.parentNode.style.opacity = 1;
+  document.getElementById('correct-answer').textContent =
+    'Correct Answer: ' + wordToGuess;
   setTimeout(() => (msgBox.parentNode.style.opacity = 0), 1500);
 }
 
+//Validates the input [Valid inputs: a-zA-Z0-9]
 function inputValidator(input) {
   if (input.length != 1) return false;
   let inputCodeValue = input.charCodeAt(0);
@@ -92,19 +101,39 @@ function inputValidator(input) {
   );
 }
 
+// Writes the letters that have been guessed in the browser
 function writeGuessedCharacters(array) {
   document.querySelector('#guessed-letters').textContent = String(
     array.slice(initialLength)
   );
 }
 
+// Gets a file containing a list of words from the server, chooses a random word and prepares the game.
 function getWord(filename = './words.json') {
-  let data = fetch(filename)
-    .then((res) => res.json())
+  const wordList = {
+    words: [
+      'Never Gonna Give You Up',
+      'Empathetic',
+      'Zugzwang',
+      'axiom',
+      'bagpipes',
+    ],
+  };
+
+  fetch(filename)
+    .then(
+      (res) => res.json(),
+      (res) => {
+        console.log(res);
+        return wordList;
+      }
+    )
     .then((data) => {
       let word = data.words[Math.round(Math.random() * data.words.length)];
       wordToGuess = word;
       writeToDOM(checker());
       document.querySelector('#counter').textContent = 'Chances:   ' + chances;
+      document.getElementById('correct-answer').textContent =
+        'Correct Answer: ' + '#'.repeat(wordToGuess.length);
     });
 }
