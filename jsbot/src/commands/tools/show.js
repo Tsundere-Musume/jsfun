@@ -11,8 +11,8 @@ module.exports = {
         .setDescription('The id of the note you wish to view.')
         .setRequired(true)
     ),
-  async execute(interaction, client) {
-    const noteID = interaction.options.getString('note_id');
+  async execute(interaction, client, noteID) {
+    if (!noteID) noteID = interaction.options.getString('note_id');
     const userID = interaction.user.id;
     let note = null;
     try {
@@ -41,6 +41,7 @@ module.exports = {
       });
     await interaction.reply({
       embeds: [embed],
+      ephemeral: true,
     });
   },
 };

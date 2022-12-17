@@ -26,6 +26,16 @@ module.exports = {
       } catch (error) {
         console.error(error);
       }
+    } else if (interaction.isSelectMenu()) {
+      const { selectMenus } = client;
+      const { customId } = interaction;
+      const menu = selectMenus.get(customId);
+      if (!menu) return new Error('There is no select menu with that id.');
+      try {
+        await menu.execute(interaction, client);
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
 };

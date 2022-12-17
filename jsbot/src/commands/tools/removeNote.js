@@ -25,6 +25,7 @@ module.exports = {
     if (!note) {
       await interaction.reply({
         content: 'Please input a valid note id.',
+        ephemeral: true,
       });
       return;
     }
@@ -34,12 +35,14 @@ module.exports = {
         async () =>
           await interaction.reply({
             content: `\`${noteID}\`: Note successfully deleted.`,
+            ephemeral: true,
           })
       )
       .catch(async (err) => {
         console.error(err);
         await interaction.reply({
           content: 'Something went wrong when deleting the record.',
+          ephemeral: true,
         });
       });
   },

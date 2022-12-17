@@ -10,6 +10,7 @@ module.exports = {
     success = async () => {
       await interaction.reply({
         content: `All notes of ${interaction.user.tag} successfully deleted.`,
+        ephemeral: true,
       });
     };
 
@@ -17,6 +18,7 @@ module.exports = {
       console.error(error);
       await interaction.reply({
         content: `Something went wrong when deleting records of ${interaction.user.tag}`,
+        ephemeral: true,
       });
     };
 

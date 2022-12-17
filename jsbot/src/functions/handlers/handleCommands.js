@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId} = process.env
+const { clientId, guildId } = process.env;
 
 const fs = require('fs');
 module.exports = (client) => {
@@ -24,7 +24,8 @@ module.exports = (client) => {
       try {
         console.log('Started refreshing application (/) commands.');
 
-        await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+        await rest.put(Routes.applicationCommands(clientId), {
+          // await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
           body: client.commandArray,
         });
 

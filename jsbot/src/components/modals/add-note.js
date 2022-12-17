@@ -17,10 +17,12 @@ module.exports = {
       console.error(err);
       await interaction.reply({
         content: 'Something went wrong when adding data.',
+        ephemeral: true,
       });
     });
     await interaction.reply({
       content: 'Successfully added note.',
+      ephemeral: true,
     });
   },
 };

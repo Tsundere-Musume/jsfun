@@ -17,11 +17,13 @@ module.exports = {
       console.error(error);
       await interaction.reply({
         content: 'Something went wrong when updating the database.',
+        ephemeral: true,
       });
       return;
     }
     await interaction.reply({
       content: `\`${noteID}\`: Note successfully updated.`,
+      ephemeral: true,
     });
   },
 };

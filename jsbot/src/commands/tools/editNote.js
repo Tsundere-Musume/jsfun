@@ -32,6 +32,7 @@ module.exports = {
     if (!note) {
       await interaction.reply({
         content: 'Please input a valid note id.',
+        ephemeral: true,
       });
       return;
     }
